@@ -1,11 +1,5 @@
-
 function App() {
+  return <h1>React Showcase</h1>;
+}
 
-
-  return (
-    <div></div>
-  );
-
-};
-
-export default App
+export default App;
