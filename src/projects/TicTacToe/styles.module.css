@@ -1,0 +1,43 @@
+.ticTacToeContainer {
+  display: flex;
+  flex-direction: row;
+  width: 524px;
+  justify-content: space-around;
+  position: relative;
+}
+.boardContent {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.ticTacToeContainer h1 {
+  margin-top: 0;
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.ticTacToeContainer h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+button {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  width: 110px;
+}
+
+.movesContainer {
+  position: absolute;
+  top: 56px;
+}
+
+.buttonsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}

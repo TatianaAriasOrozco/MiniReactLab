@@ -1,5 +1,9 @@
 .content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   padding: 64px 16px;
-
+  position: relative;
+  height: 500px;
   border: 1px solid red;
 }

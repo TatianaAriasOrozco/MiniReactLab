@@ -1,25 +1,77 @@
 import PropTypes from 'prop-types';
-import Button from '../../components/common/Button/Button';
 import styles from './HomePage.module.css';
+import Card from '../../components/common/Card/Card';
+import pokeapiLogo from '../../assets/pokeapi.png';
+import tictactoeLogo from '../../assets/tictactoe.png';
+import wordleLogo from '../../assets/wordle.png';
+import youtubeLogo from '../../assets/youtube.png';
 
 const HomePage = ({ onClickProject }) => {
   return (
     <div className={styles.content}>
-      <h1>Yo soy la lista de Proyectos</h1>
-
-      <Button onClick={() => onClickProject('Tic Tac Toe')}>Tic Tac Toe</Button>
-      <Button
+      <Card
+        image={tictactoeLogo}
+        title="ReactDev Tic-Tac-Toe"
+        buttons={[
+          'useState',
+          'useEffect',
+          'Custom Hooks',
+          'localStorage',
+          'CSS Modules',
+          'otherFeature',
+        ]}
+        onClick={() => onClickProject('Tic Tac Toe')}
+      />
+      <Card
+        image={pokeapiLogo}
+        title="Poke Collection"
+        buttons={[
+          'useState',
+          'useEffect',
+          'Custom Hooks',
+          'localStorage',
+          'CSS Modules',
+          'otherFeature',
+        ]}
         onClick={() => onClickProject('Pokemon Collection')}
-        variant="outline"
-      >
+      />
+      <Card
+        image={wordleLogo}
+        title="React Wordle"
+        buttons={[
+          'useState',
+          'useEffect',
+          'Custom Hooks',
+          'localStorage',
+          'CSS Modules',
+          'otherFeature',
+        ]}
+        onClick={() => onClickProject('Wordle')}
+      />
+      <Card
+        image={youtubeLogo}
+        title="Video Feed"
+        buttons={[
+          'useState',
+          'useEffect',
+          'Custom Hooks',
+          'localStorage',
+          'CSS Modules',
+          'otherFeature',
+        ]}
+        onClick={() => onClickProject('Video Player')}
+      />
+
+      {/* <Button onClick={() => {}}>Tic Tac Toe</Button>
+      <Button onClick={() => {}} variant="outline">
         Pokemon Collection
       </Button>
-      <Button onClick={() => onClickProject('Wordle')} variant="destructive">
+      <Button onClick={() => {}} variant="destructive">
         Wordle
       </Button>
-      <Button onClick={() => onClickProject('Video Player')} variant="success">
+      <Button onClick={() => {}} variant="success">
         Video Player
-      </Button>
+      </Button> */}
     </div>
   );
 };

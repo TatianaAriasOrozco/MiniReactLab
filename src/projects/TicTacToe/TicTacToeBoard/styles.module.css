@@ -1,0 +1,9 @@
+.board {
+  position: absolute;
+  top: 80px;
+}
+
+.boardRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
