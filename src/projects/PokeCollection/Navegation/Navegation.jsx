@@ -1,8 +1,10 @@
-import Login from './Login/Login';
-import Navegation from './Navegation';
 
-function Navegation() {
-  return <Login />;
+
+
+const Navegation = () => {
+  return (
+    <h1>Holaaa</h1>
+  );
 }
 
 export default Navegation;

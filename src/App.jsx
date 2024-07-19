@@ -13,6 +13,7 @@ const PROJECT = 'project';
 function App() {
   const [currentPage, setCurrentPage] = useState(PROJECT);
   const [currentProjectName, setCurrentProjectName] = useState('');
+  localStorage.removeItem('username');
   const handleToHomePage = () => {
     setCurrentPage(HOME);
     setCurrentProjectName('');

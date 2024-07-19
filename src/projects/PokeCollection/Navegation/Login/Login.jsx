@@ -1,5 +1,7 @@
 import styles from './Login.module.css';
 import { useRef } from 'react';
+import pokeapiLogo from '../../../../assets/pokeapi.png'
+
 
 const Login = ({ setUserName }) => {
   const inputRef = useRef(null);
@@ -11,25 +13,28 @@ const Login = ({ setUserName }) => {
   };
   return (
     <main className={styles.main}>
-      <h1 className={styles.title}>colocar imagen</h1>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <label className={styles.label} htmlFor="username">
-          username
-        </label>
-        <input
-          ref={inputRef}
-          className={styles.input}
-          id="username"
-          name="username"
-          type="text"
-          placeholder="some-user"
-        />
-        <button className={styles.button} type="submit">
-          Enter
-        </button>
-      </form>
+      <div className={styles.card}>
+        <header className={styles.headerPokeApi}>
+          <img src={pokeapiLogo} alt="PokeAPI Logo" className={styles.pokeImage} />
+        </header>
+        <div className={styles.cardBody}>
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <input
+              ref={inputRef}
+              className={styles.input}
+              id="username"
+              name="username"
+              type="text"
+              placeholder="Username"
+            />
+            <button className={styles.button} type="submit">
+              Enter
+            </button>
+          </form>
+        </div>
+      </div>
     </main>
   );
 };
 
-export default Welcome;
+export default Login;
