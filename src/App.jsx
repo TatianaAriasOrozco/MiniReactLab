@@ -1,9 +1,9 @@
 import React from 'react';
-import PaginaPrincipal from './pages/PaginaPrincipal';
+import PrincipalPage from './pages/PrincipalPage';
 
 function App() {
   return (
-    <PaginaPrincipal />
+    <PrincipalPage />
 
   );
 }
