@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 /* 1rem = 10px, ver 'styles/index.css' */
 :root {
+ --primary-font: nunito;
+ --primary-color: #0F172A;
 }

@@ -1,5 +1,7 @@
+import TicTacToe from "./components/TicTacToe/TicTacToe.jsx";
+
 function App() {
-  return <h1>React Showcase</h1>;
+  return <TicTacToe />;
 }
 
 export default App;
