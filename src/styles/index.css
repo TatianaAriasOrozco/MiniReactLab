@@ -16,5 +16,5 @@ html {
 
 * {
   font-family: var(--primary-font);
-  color: var(--primary-color);
+  /* color: var(--primary-color); */
 }
