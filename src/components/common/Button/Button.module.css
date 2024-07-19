@@ -1,0 +1,50 @@
+.primary {
+  border: 0;
+  padding: 8px 12px;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  border-radius: 8px;
+  background: #3b76f6;
+  cursor: pointer;
+}
+
+.outline {
+  border: 0;
+  padding: 4px 8px;
+  color: #3b76f6;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  border-radius: 4px;
+  border: 1px solid #3b76f6;
+}
+
+.success {
+  border: 0;
+  padding: 4px 8px;
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  border-radius: 4px;
+  background: #15803d;
+}
+
+.destructive {
+  border: 0;
+  padding: 12px 16px;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  border-radius: 8px;
+  background: #b91c1c;
+  cursor: pointer;
+}
