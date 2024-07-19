@@ -1,4 +1,5 @@
 
+
 import { useState } from 'react';
 import HomePage from './pages/HomePage/HomePage';
 import ProjectPage from './pages/ProjectPage/ProjectPage';
@@ -14,7 +15,6 @@ const PROJECT = 'project';
 function App() {
   const [currentPage, setCurrentPage] = useState(PROJECT);
   const [currentProjectName, setCurrentProjectName] = useState('');
-
   const handleToHomePage = () => {
     setCurrentPage(HOME);
     setCurrentProjectName('');
