@@ -10,13 +10,16 @@ const PROJECT = 'project';
 
 function App() {
   const [currentPage, setCurrentPage] = useState(PROJECT);
+  const [currentProjectName, setCurrentProjectName] = useState('');
 
   const handleToHomePage = () => {
     setCurrentPage(HOME);
+    setCurrentProjectName('');
   };
 
-  const handleToProjectPage = () => {
+  const handleToProjectPage = (projectName) => {
     setCurrentPage(PROJECT);
+    setCurrentProjectName(projectName);
   };
 
   return (
@@ -25,11 +28,16 @@ function App() {
         <Header
           onClickTitle={handleToHomePage}
           disabledTitle={currentPage === HOME}
+          currentProjectName={currentProjectName}
         />
-        {currentPage === HOME && (
-          <HomePage onClickAnyProject={handleToProjectPage} />
-        )}
-        {currentPage === PROJECT && <ProjectPage />}
+        <section className={styles.content}>
+          {currentPage === HOME && (
+            <HomePage onClickProject={handleToProjectPage} />
+          )}
+          {currentPage === PROJECT && (
+            <ProjectPage currentProject={currentProjectName} />
+          )}
+        </section>
       </I18nContextProvider>
     </div>
   );

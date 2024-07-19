@@ -1,21 +1,23 @@
 import PropTypes from 'prop-types';
 import Button from '../../components/common/Button/Button';
-const HomePage = ({ onClickAnyProject }) => {
+import styles from './HomePage.module.css';
+
+const HomePage = ({ onClickProject }) => {
   return (
-    <div>
-      <br />
-      <br />
-      <br />
+    <div className={styles.content}>
       <h1>Yo soy la lista de Proyectos</h1>
 
-      <Button onClick={onClickAnyProject}>Tic Tac Toe</Button>
-      <Button onClick={onClickAnyProject} variant="outline">
+      <Button onClick={() => onClickProject('Tic Tac Toe')}>Tic Tac Toe</Button>
+      <Button
+        onClick={() => onClickProject('Pokemon Collection')}
+        variant="outline"
+      >
         Pokemon Collection
       </Button>
-      <Button onClick={onClickAnyProject} variant="destructive">
+      <Button onClick={() => onClickProject('Wordle')} variant="destructive">
         Wordle
       </Button>
-      <Button onClick={onClickAnyProject} variant="success">
+      <Button onClick={() => onClickProject('Video Player')} variant="success">
         Video Player
       </Button>
     </div>
@@ -25,5 +27,5 @@ const HomePage = ({ onClickAnyProject }) => {
 export default HomePage;
 
 HomePage.propTypes = {
-  onClickAnyProject: PropTypes.func.isRequired,
+  onClickProject: PropTypes.func.isRequired,
 };

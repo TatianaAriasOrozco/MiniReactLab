@@ -1,36 +1,51 @@
 .header {
+  padding: 16px 80px;
+  background: #eff4ff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 54px;
-  max-width: 1280px;
-  padding: 0 16px;
-  background: #eff4ff;
+  height: 64px;
 }
 .header h1 {
   color: #0f172a;
-  font-size: 3.6rem;
+  font-size: 36px;
   font-weight: 700;
   line-height: 40px;
-  cursor: pointer;
+  width: 273px;
 }
 .title_hover:hover {
+  cursor: pointer;
   text-shadow: rgb(200, 197, 186) 1px 0 10px;
-  border: 1px solid #ffffff00;
 }
 .btn_group {
-  border: 1px solid red;
-  width: 84px;
+  width: 273px;
   height: 40px;
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   gap: 4px;
 }
+.btn_group figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+}
 .btn_group img {
   width: 24px;
-}
-.english,
-.spanish {
   cursor: pointer;
+}
+.language_active {
+  border: 2px solid #6090fa;
+  border-radius: 100%;
+}
+.project_name {
+  color: #1d58d8;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #1d58d8;
 }

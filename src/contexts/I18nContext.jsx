@@ -22,7 +22,7 @@ export const I18nContextProvider = ({ children }) => {
     return locales[language][key] || key;
   };
   return (
-    <I18nContext.Provider value={{ t, changeLanguage }}>
+    <I18nContext.Provider value={{ t, changeLanguage, language }}>
       {children}
     </I18nContext.Provider>
   );
