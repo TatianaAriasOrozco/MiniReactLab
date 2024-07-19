@@ -2,12 +2,13 @@ import Button from '../../components/common/Button/Button.jsx';
 import { I18nContext } from '../../contexts/I18nContext.jsx';
 import styles from './styles.module.css';
 import TicTacToeBoard from './TicTacToeBoard/TicTacToeBoard.jsx';
+import useLocalStorage from '../../hooks/useLocalStorage.js';
 import { useState, useContext } from 'react';
 
 export default function TicTacToe() {
-  const [winner, setWinner] = useState('');
-  const [history, setHistory] = useState([Array(9).fill(null)]);
-  const [currentMove, setCurrentMove] = useState(0);
+  const [winner, setWinner] = useLocalStorage('ticTacToeWinner', '');
+  const [history, setHistory] = useLocalStorage('ticTacToeHistory', [Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useLocalStorage('ticTacToeCurrentMove', 0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
@@ -25,6 +26,9 @@ export default function TicTacToe() {
     setHistory([Array(9).fill(null)]);
     setCurrentMove(0);
     setWinner('');
+    localStorage.removeItem('ticTacToeHistory');
+    localStorage.removeItem('ticTacToeCurrentMove');
+    localStorage.removeItem('ticTacToeWinner');
   }
 
   function jumpTo(nextMove) {
