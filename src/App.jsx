@@ -1,8 +1,11 @@
+
 import { useState } from 'react';
 import HomePage from './pages/HomePage/HomePage';
 import ProjectPage from './pages/ProjectPage/ProjectPage';
 import Header from './components/layout/Header/Header';
 import styles from './styles/App.module.css';
+import PaginaPrincipal from './pages/PaginaPrincipal';
+import TicTacToe from "./components/TicTacToe/TicTacToe.jsx";
 import { I18nContextProvider } from './contexts/I18nContext';
 
 const HOME = 'home';
@@ -21,6 +24,10 @@ function App() {
     setCurrentPage(PROJECT);
     setCurrentProjectName(projectName);
   };
+  
+  //<PaginaPrincipal />
+  //<TicTacToe />
+  
 
   return (
     <div className={styles.main}>
@@ -40,7 +47,5 @@ function App() {
         </section>
       </I18nContextProvider>
     </div>
-  );
-}
 
 export default App;

@@ -2,4 +2,5 @@
 /* 1rem = 10px, ver 'styles/index.css' */
 :root {
   --primary-font: 'Nunito', sans-serif;
+  --primary-color: #0F172A;
 }
