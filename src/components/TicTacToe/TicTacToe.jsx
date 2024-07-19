@@ -1,13 +1,21 @@
 import styles from "./styles.module.css"
-import TicTacToeBoard from "./TicTacToeBoard/index"
+import TicTacToeBoard from "./TicTacToeBoard/TicTacToeBoard.jsx"
+import { useState } from "react";
 
 
 export default function TicTacToe() {
+
+    const [winner, setWinner] = useState('');
+
+    const handleWinner = (status) => {
+        setWinner(status);
+    };
+
     return (
         <div className={styles.ticTacToeContainer}>
             <div>
-                <h1>Winner: O</h1>
-                <TicTacToeBoard />
+                <h1>{winner}</h1>
+                <TicTacToeBoard handleWinner={handleWinner} />
             </div>
             <div>
                 <button className={styles.reset}>Reset</button>

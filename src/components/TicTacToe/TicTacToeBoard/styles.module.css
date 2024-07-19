@@ -8,11 +8,3 @@
     grid-template-columns: repeat(3, 1fr);
 
 }
-
-.square {
-    height: 90px;
-    width: 90px;
-    border-radius: 0px;
-    border: 1px solid #CBD5E1;
-    background-color: #fff;
-}
