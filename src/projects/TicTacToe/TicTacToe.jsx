@@ -6,10 +6,44 @@ import { useState, useContext } from 'react';
 
 export default function TicTacToe() {
   const [winner, setWinner] = useState('');
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const xIsNext = currentMove % 2 === 0;
+  const currentSquares = history[currentMove];
 
   const handleWinner = (status) => {
     setWinner(status);
   };
+
+  function handlePlay(nextSquares) {
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+  }
+
+  function reset() {
+    setHistory([Array(9).fill(null)]);
+    setCurrentMove(0);
+    setWinner('');
+  }
+
+  function jumpTo(nextMove) {
+    setCurrentMove(nextMove);
+  }
+
+  const moves = history.map((squares, move) => {
+    let description;
+    if (move > 0) {
+      description = 'move ' + move;
+    } else {
+      description = 'Game start';
+    }
+    return (
+      <li key={move}>
+        <Button onClick={() => jumpTo(move)}>{description}</Button>
+      </li>
+    );
+  });
 
   // t es para traducir
   //const { t } = useContext(I18nContext);
@@ -18,21 +52,13 @@ export default function TicTacToe() {
     <div className={styles.ticTacToeContainer}>
       <div className={styles.boardContent}>
         <h1>{winner}</h1>
-        <TicTacToeBoard handleWinner={handleWinner} />
+        <TicTacToeBoard handleWinner={handleWinner} xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div>
-        <Button variant="destructive">reset</Button>
+        <Button variant="destructive" onClick={() => reset()}>reset</Button>
         <div className={styles.movesContainer}>
           <h2>Go to:</h2>
-          <div className={styles.buttonsContainer}>
-            <Button>Move</Button>
-            <Button>Move</Button>
-            <Button variant="success">Move</Button>
-            <Button>Move</Button>
-            <Button>Move</Button>
-            <Button>Move</Button>
-            <Button>Move</Button>
-          </div>
+          <ol className={styles.buttonsContainer}>{moves}</ol>
         </div>
       </div>
     </div>
