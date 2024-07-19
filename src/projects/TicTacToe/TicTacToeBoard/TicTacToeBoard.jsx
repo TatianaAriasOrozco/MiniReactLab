@@ -3,9 +3,9 @@ import styles from "./styles.module.css"
 import { useState, useEffect } from "react";
 
 
-export default function TicTacToeBoard({ handleWinner }) {
-    const [xIsNext, setXIsNext] = useState(true);
-    const [squares, setSquares] = useState(Array(9).fill(null));
+export default function TicTacToeBoard({ handleWinner, xIsNext, squares, onPlay }) {
+    // const [xIsNext, setXIsNext] = useState(true);
+    // const [squares, setSquares] = useState(Array(9).fill(null));
     const [winningLine, setWinningLine] = useState(null);
 
     function calculateWinner(squares) {
@@ -38,8 +38,7 @@ export default function TicTacToeBoard({ handleWinner }) {
         } else {
             nextSquares[i] = 'O';
         }
-        setSquares(nextSquares);
-        setXIsNext(!xIsNext);
+        onPlay(nextSquares);
     }
 
     useEffect(() => {
@@ -53,9 +52,11 @@ export default function TicTacToeBoard({ handleWinner }) {
         } else if (!squares.includes(null)) {
             status = 'Tied Game';
             handleWinner(status);
+            setWinningLine(null);
         } else {
             status = 'Next player: ' + (xIsNext ? 'X' : 'O');
             handleWinner(status);
+            setWinningLine(null);
         }
     }, [squares, xIsNext, handleWinner]);
 
