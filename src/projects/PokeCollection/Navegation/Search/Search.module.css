@@ -36,42 +36,6 @@
   text-align: center;
 }
 
-.pokemonName {
-  font-size: 24px;
-  margin: 0;
-}
-
-.pokemonId {
-  color: #666;
-  margin: 5px 0;
-}
-
-.pokemonImage {
-  width: 150px;
-  height: 150px;
-}
-
-.pokemonTypes {
-  margin: 10px 0;
-}
-
-.type {
-  display: inline-block;
-  padding: 5px 10px;
-  margin: 0 5px;
-  border-radius: 20px;
-  font-size: 14px;
-}
-
-.poison {
-  background-color: #a040a0;
-  color: white;
-}
-
-.grass {
-  background-color: #78c850;
-  color: white;
-}
 
 .pokemon-stats {
   display: flex;

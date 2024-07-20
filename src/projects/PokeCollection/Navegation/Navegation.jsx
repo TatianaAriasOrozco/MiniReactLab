@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import Favorites from './Favorites/Favorites';
 import { Search } from './Search/Search';
