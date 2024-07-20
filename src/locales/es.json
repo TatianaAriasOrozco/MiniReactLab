@@ -1,8 +1,9 @@
 {
   "next-player": "Siguiente jugador",
-  "move-0": "Inicio del Juego",
+  "move-0": "Inicio del juego",
   "move": "Movimiento",
   "reset-button": "Reiniciar",
   "won-game": "Ganador",
-  "tied-game": "Juego Empatado"
+  "tied-game": "Juego Empatado",
+  "Go-to": "Ir a:"
 }

@@ -1,9 +1,9 @@
 import Button from '../../components/common/Button/Button.jsx';
 import { I18nContext } from '../../contexts/I18nContext.jsx';
+import { useContext } from 'react';
 import styles from './styles.module.css';
 import TicTacToeBoard from './TicTacToeBoard/TicTacToeBoard.jsx';
 import useLocalStorage from '../../hooks/useLocalStorage.js';
-import { useState, useContext } from 'react';
 
 export default function TicTacToe() {
   const [winner, setWinner] = useLocalStorage('ticTacToeWinner', '');
@@ -11,6 +11,8 @@ export default function TicTacToe() {
   const [currentMove, setCurrentMove] = useLocalStorage('ticTacToeCurrentMove', 0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
+  // t es para traducir
+  const { t } = useContext(I18nContext);
 
   const handleWinner = (status) => {
     setWinner(status);
@@ -38,9 +40,9 @@ export default function TicTacToe() {
   const moves = history.map((squares, move) => {
     let description;
     if (move > 0) {
-      description = 'move ' + move;
+      description = t('move') + " " + move;
     } else {
-      description = 'Game start';
+      description = t('move-0');
     }
     return (
       <li key={move}>
@@ -49,9 +51,6 @@ export default function TicTacToe() {
     );
   });
 
-  // t es para traducir
-  //const { t } = useContext(I18nContext);
-
   return (
     <div className={styles.ticTacToeContainer}>
       <div className={styles.boardContent}>
@@ -59,9 +58,9 @@ export default function TicTacToe() {
         <TicTacToeBoard handleWinner={handleWinner} xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div>
-        <Button variant="destructive" onClick={() => reset()}>reset</Button>
+        <Button variant="destructive" onClick={() => reset()}>{t('reset-button')}</Button>
         <div className={styles.movesContainer}>
-          <h2>Go to:</h2>
+          <h2>{t('Go-to')}</h2>
           <ol className={styles.buttonsContainer}>{moves}</ol>
         </div>
       </div>

@@ -1,12 +1,13 @@
 import Square from "./Square/square.jsx"
 import styles from "./styles.module.css"
 import { useState, useEffect } from "react";
+import { I18nContext } from '../../../contexts/I18nContext.jsx'
+import { useContext } from 'react';
 
 
 export default function TicTacToeBoard({ handleWinner, xIsNext, squares, onPlay }) {
-    // const [xIsNext, setXIsNext] = useState(true);
-    // const [squares, setSquares] = useState(Array(9).fill(null));
     const [winningLine, setWinningLine] = useState(null);
+    const { t } = useContext(I18nContext);
 
     function calculateWinner(squares) {
         const lines = [
@@ -46,15 +47,15 @@ export default function TicTacToeBoard({ handleWinner, xIsNext, squares, onPlay 
         const result = calculateWinner(squares);
         let status;
         if (winner) {
-            status = 'Winner: ' + winner.winner;
+            status = t('won-game') + " " + winner.winner;
             handleWinner(status);
             setWinningLine(result.line);
         } else if (!squares.includes(null)) {
-            status = 'Tied Game';
+            status = t('tied-game');
             handleWinner(status);
             setWinningLine(null);
         } else {
-            status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+            status = t('next-player') + ": " + (xIsNext ? 'X' : 'O');
             handleWinner(status);
             setWinningLine(null);
         }
