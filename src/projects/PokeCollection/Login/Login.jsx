@@ -1,9 +1,12 @@
 import styles from './Login.module.css';
 import Button from '../../../components/common/Button/Button';
-import { useRef } from 'react';
+import { useRef, useContext } from 'react';
 import pokeapiLogo from '../../../assets/pokeapi.png';
+import { I18nContext } from '../../../contexts/I18nContext';
+
 
 const Login = ({ setUsername }) => {
+  const { t } = useContext(I18nContext);
   const inputRef = useRef(null);
 
   const handleSubmit = (event) => {
@@ -31,10 +34,10 @@ const Login = ({ setUsername }) => {
               id="username"
               name="username"
               type="text"
-              placeholder="Username"
+              placeholder={t('username')}
             />
             <button className={styles.button} type="submit">
-              Enter
+              {t('enter')}
             </button>
           </form>
         </div>

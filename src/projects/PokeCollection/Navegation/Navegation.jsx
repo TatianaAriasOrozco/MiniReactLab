@@ -5,10 +5,13 @@ import { useFetch } from '../../../hooks/useFetch';
 import { URL_BASE } from '../api/config';
 import styles from '../Navegation/Navegation.module.css';
 import { NavigationContextProvider } from '../../../contexts/NavigationContext';
+import { I18nContext } from '../../../contexts/I18nContext';
+import { useContext } from 'react';
 
 const Navigation = ({ username, setUsername }) => {
   const { data: favorites, fetchData: fetchFavorites } = useFetch();
   const [favoriteList, setFavoriteList] = useState(null);
+  const { t } = useContext(I18nContext);
 
   const getFavorites = async () => {
     await fetchFavorites(
@@ -26,9 +29,7 @@ const Navigation = ({ username, setUsername }) => {
   //onFavorite:
   /* Agregar o borrar a la lista de  favoritos con pokemon */
   const handleFavorite = (pokemon) => {
-    console.log('handleFavorite:', pokemon);
     const searchPokemon = favoriteList.find((poke) => poke.id === pokemon.id);
-    console.log(searchPokemon, ' es el elegido!');
     if (searchPokemon) {
       setFavoriteList(favoriteList.filter((poke) => poke.id !== pokemon.id));
     } else {
@@ -48,24 +49,17 @@ const Navigation = ({ username, setUsername }) => {
     <NavigationContextProvider>
       <div className={styles.navigationContainer}>
         <div className={styles.searchContainer}>
-          {/* <button onClick={getFavorites}>click</button> */}
           <Search
             username={username}
             fetchFavorites={fetchFavorites}
             onFavorite={handleFavorite}
             favoriteList={favoriteList}
           />
-          {/* <Favorites
-        username={username}
-        favoritesData={favoritesData}
-        isLoading={isLoading}
-        error={error}
-        /> */}
         </div>
         <div className={styles.favoritesContainer}>
           <div className={styles.favoritesHeader}>
-            <h2 className={styles.title}>Favorites</h2>
-            <button onClick={() => setUsername('')}>Exit</button>
+            <h2 className={styles.title}>{t('favorites')}</h2>
+            <button onClick={() => setUsername('')}>{t('exit')}</button>
           </div>
           {favoriteList && <Favorites favorites={favoriteList} />}
         </div>
