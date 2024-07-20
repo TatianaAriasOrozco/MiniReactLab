@@ -4,6 +4,7 @@ import { Search } from './Search/Search';
 import { useFetch } from '../../../hooks/useFetch';
 import { URL_BASE } from '../api/config';
 import styles from '../Navegation/Navegation.module.css';
+import { NavigationContextProvider } from '../../../contexts/NavigationContext';
 
 const Navigation = ({ username, setUsername }) => {
   const { data: favorites, fetchData: fetchFavorites } = useFetch();
@@ -44,30 +45,32 @@ const Navigation = ({ username, setUsername }) => {
   };
 
   return (
-    <div className={styles.navigationContainer}>
-      <div className={styles.searchContainer}>
-        {/* <button onClick={getFavorites}>click</button> */}
-        <Search
-          username={username}
-          fetchFavorites={fetchFavorites}
-          onFavorite={handleFavorite}
-          favoriteList={favoriteList}
-        />
-        {/* <Favorites
+    <NavigationContextProvider>
+      <div className={styles.navigationContainer}>
+        <div className={styles.searchContainer}>
+          {/* <button onClick={getFavorites}>click</button> */}
+          <Search
+            username={username}
+            fetchFavorites={fetchFavorites}
+            onFavorite={handleFavorite}
+            favoriteList={favoriteList}
+          />
+          {/* <Favorites
         username={username}
         favoritesData={favoritesData}
         isLoading={isLoading}
         error={error}
         /> */}
-      </div>
-      <div className={styles.favoritesContainer}>
-        <div className={styles.favoritesHeader}>
-          <h2 className={styles.title}>Favorites</h2>
-          <button onClick={() => setUsername('')}>Exit</button>
         </div>
-        {favoriteList && <Favorites favorites={favoriteList} />}
+        <div className={styles.favoritesContainer}>
+          <div className={styles.favoritesHeader}>
+            <h2 className={styles.title}>Favorites</h2>
+            <button onClick={() => setUsername('')}>Exit</button>
+          </div>
+          {favoriteList && <Favorites favorites={favoriteList} />}
+        </div>
       </div>
-    </div>
+    </NavigationContextProvider>
   );
 };
 

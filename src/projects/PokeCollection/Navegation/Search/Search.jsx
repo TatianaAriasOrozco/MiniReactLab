@@ -1,16 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import styles from './Search.module.css';
 import { useFetch } from '../../../../hooks/useFetch';
 import { URL_BASE } from '../../api/config';
 import useLocalStorage from '../../../../hooks/useLocalStorage';
 import CardPokemon from '../CardPokemon/CardPokemon';
+import { NavigationContext } from '../../../../contexts/NavigationContext';
 
 export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
-  const [searchTerm, setSearchTerm] = useState('');
   const [searchedPokemon, setSearchedPokemon] = useState(null);
   const [activeFavorite, setActiveFavorite] = useState(null);
   const { data: pokemon, loading, error, fetchData: getPokemon } = useFetch();
-  const [hasSubmit, setHasSubmit] = useState(false);
+
+  const { searchTerm, setSearchTerm, hasSubmit, setHasSubmit } = useContext(NavigationContext);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -43,7 +44,7 @@ export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
       id: pokemon.id,
       name: pokemon.name,
       types: pokemon.types.map((typeInfo) => typeInfo.type.name),
-      avatarUrl: pokemon.sprites.front_default,
+      avatarUrl: pokemon.sprites.other['official-artwork'].front_default,
     };
     const options = {
       method: 'POST',
@@ -85,10 +86,6 @@ export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
     console.log('click', activeFavorite);
   };
 
-  // const handleClickCard = (pokeName) => {
-  //   setSearchTerm(pokeName);
-  //   setHasSubmit(true);
-  // }
 
   let starSvg = (
     <svg
