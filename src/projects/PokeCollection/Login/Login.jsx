@@ -1,16 +1,18 @@
 import styles from './Login.module.css';
+import Button from '../../../components/common/Button/Button';
 import { useRef } from 'react';
-import pokeapiLogo from '../../../../assets/pokeapi.png';
-import useLocalStorage from '../../../../hooks/useLocalStorage';
+import pokeapiLogo from '../../../assets/pokeapi.png';
 
 const Login = ({ setUsername }) => {
-  //const [username, setUsername] = useLocalStorage('username', '');
   const inputRef = useRef(null);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!inputRef.current.value) return;
+    console.log(inputRef.current.value);
     setUsername(inputRef.current.value);
   };
+
   return (
     <main className={styles.main}>
       <div className={styles.card}>

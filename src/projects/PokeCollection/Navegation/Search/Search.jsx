@@ -4,57 +4,41 @@ import { useFetch } from '../../../../hooks/useFetch';
 import { URL_BASE } from '../../api/config';
 import useLocalStorage from '../../../../hooks/useLocalStorage';
 
-export function Search({ username }) {
+export function Search({ username, fetchFavorites, onFavorite }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchedPokemon, setSearchedPokemon] = useState(null);
   const [activeFavorite, setActiveFavorite] = useState(false);
-  const { data, loading, error, fetchData } = useFetch();
+  const { data: pokemon, loading, error, fetchData: getPokemon } = useFetch();
+
   const handleSearch = (e) => {
     e.preventDefault();
-    setSearchedPokemon(data);
-    return;
+    setSearchedPokemon(pokemon);
+    console.log('searchedPokemon', searchedPokemon, pokemon);
   };
 
   useEffect(() => {
-    if (searchTerm != '') {
-      const url = `https://pokeapi.co/api/v2/pokemon/${searchTerm}`;
-      console.log('url', url);
-      fetchData(url);
-
-      if (!error) {
-        setSearchedPokemon(data);
-      }
-    }
+    if (searchTerm)
+      getPokemon(`https://pokeapi.co/api/v2/pokemon/${searchTerm}`);
   }, [searchTerm]);
 
-  useEffect(() => {
-    console.log(username);
-    if (activeFavorite) {
-      console.log('click activado favoritos');
-      const url = `${URL_BASE}/api/${username}/favorites`;
-      const body = {
-        id: searchedPokemon.id,
-        name: searchedPokemon.name,
-        types: searchedPokemon.types.map((typeInfo) => typeInfo.type.name),
-        avatarUrl: searchedPokemon.sprites.front_default,
-      };
-      const options = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      };
-      fetch(url, options);
-    } else {
-      const url = `${URL_BASE}/api/${username}/favorites/${searchedPokemon.id}`;
-      const options = {
-        method: 'DELETE',
-        headers: { 'User-Agent': 'insomnia/2023.5.8' },
-      };
-      fetch(url, options);
-    }
-  }, [activeFavorite]);
+  const createFavorite = async () => {
+    const url = `${URL_BASE}/api/${username}/favorites`;
+    const body = {
+      id: pokemon.id,
+      name: pokemon.name,
+      types: pokemon.types.map((typeInfo) => typeInfo.type.name),
+      avatarUrl: pokemon.sprites.front_default,
+    };
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    };
+    await fetchFavorites(url, options);
+  };
+  useEffect(() => {}, [activeFavorite]);
 
   const handleFavorite = () => {
     setActiveFavorite(!activeFavorite);
@@ -77,19 +61,19 @@ export function Search({ username }) {
       </form>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
-      {searchedPokemon && (
+      {pokemon && (
         <div className={styles.pokemonCard}>
-          <h2 className={styles.pokemonName}>{searchedPokemon.name}</h2>
+          <h2 className={styles.pokemonName}>{pokemon.name}</h2>
           <p className={styles.pokemonId}>
-            #{searchedPokemon.id.toString().padStart(3, '0')}
+            #{pokemon.id.toString().padStart(3, '0')}
           </p>
           <img
-            src={searchedPokemon.sprites.front_default}
-            alt={searchedPokemon.name}
+            src={pokemon.sprites.front_default}
+            alt={pokemon.name}
             className={styles.pokemonImage}
           />
           <div className={styles.pokemonTypes}>
-            {searchedPokemon.types.map((typeInfo) => (
+            {pokemon.types.map((typeInfo) => (
               <span
                 key={typeInfo.type.name}
                 className={`${styles.type} ${styles[typeInfo.type.name]}`}
@@ -100,10 +84,10 @@ export function Search({ username }) {
           </div>
           <div className={styles.pokemonStats}>
             <div className={styles.stat}>
-              <span>{searchedPokemon.weight / 10} kg</span>
+              <span>{pokemon.weight / 10} kg</span>
             </div>
             <div className={styles.stat}>
-              <span>{searchedPokemon.height / 10} m</span>
+              <span>{pokemon.height / 10} m</span>
             </div>
           </div>
           <button onClick={handleFavorite} className={styles.favoriteButton}>

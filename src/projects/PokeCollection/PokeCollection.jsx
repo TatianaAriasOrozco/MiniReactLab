@@ -1,20 +1,18 @@
+import Login from './Login/Login';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import Login from './Navegation/Login/Login';
+import styles from './PokeCollection.module.css';
 import Navegation from './Navegation/Navegation';
-
 const PokeCollection = () => {
-  //   const { data: pokemon, loading, error } = useGetPokemon('bulbasaur');
-  const [username, setUsername] = useLocalStorage('username', '');
-  // use EFECT que te traiga el usuario de los pokemones favoritos
-  console.log(username);
+  const [username, setUsername] = useLocalStorage('username');
+
   return (
-    <>
-      {username ? (
-        <Navegation username={username} />
-      ) : (
+    <div className={styles.content}>
+      {username === '' ? (
         <Login setUsername={setUsername} />
+      ) : (
+        <Navegation username={username} />
       )}
-    </>
+    </div>
   );
 };
 export default PokeCollection;

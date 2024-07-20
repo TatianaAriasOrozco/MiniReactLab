@@ -61,17 +61,6 @@ const HomePage = ({ onClickProject }) => {
         ]}
         onClick={() => onClickProject('Video Player')}
       />
-
-      {/* <Button onClick={() => {}}>Tic Tac Toe</Button>
-      <Button onClick={() => {}} variant="outline">
-        Pokemon Collection
-      </Button>
-      <Button onClick={() => {}} variant="destructive">
-        Wordle
-      </Button>
-      <Button onClick={() => {}} variant="success">
-        Video Player
-      </Button> */}
     </div>
   );
 };

@@ -11,7 +11,7 @@ const HOME = 'home';
 const PROJECT = 'project';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState(PROJECT);
+  const [currentPage, setCurrentPage] = useState(HOME);
   const [currentProjectName, setCurrentProjectName] = useState('');
   localStorage.removeItem('username');
   const handleToHomePage = () => {
@@ -23,9 +23,6 @@ function App() {
     setCurrentPage(PROJECT);
     setCurrentProjectName(projectName);
   };
-
-  //<PaginaPrincipal />
-  //<TicTacToe />
 
   return (
     <div className={styles.main}>

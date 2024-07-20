@@ -4,19 +4,24 @@ export function useFetch() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const fetchData = async (url, options = null) => {
+  const noOP = () => {};
+  const fetchData = async (url, options = {}, setter = noOP) => {
     if (!url) return;
+    if (loading) return;
     try {
       setError(null);
       setLoading(true);
       console.log('endpoint', url);
       const response = await fetch(url, options);
-      if (!response.ok) throw Error('Peticion rechazada: Url invalid?');
+      if (!response.ok) throw Error('Url invalid?');
       if ((options && options.method !== 'DELETE') || !options) {
         const rawData = await response.json();
-        setData(rawData);
-        return data;
+        if (rawData) {
+          console.log('rawData', rawData);
+          setData(rawData);
+          setter(rawData);
+          return data;
+        }
       }
       return true;
     } catch (error) {
