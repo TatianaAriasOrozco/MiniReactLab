@@ -1,7 +1,12 @@
+import CardPokemon from './CardPokemon/CardPokemon.jsx';
 import { Search } from './Search/Search';
 
 const Navegation = () => {
-  return <Search />;
+  return (
+    <>
+      <Search />;
+    </>)
+
 };
 
 export default Navegation;
