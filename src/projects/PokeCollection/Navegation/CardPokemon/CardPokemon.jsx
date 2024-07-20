@@ -1,11 +1,12 @@
 import styles from '../CardPokemon/pokemoncard.module.css';
 import { NavigationContext } from '../../../../contexts/NavigationContext';
+import { I18nContext } from '../../../../contexts/I18nContext';
 import { useContext } from 'react';
 
 export default function CardPokemon({ size, name, id, img, types }) {
 
   const { setSearchTerm, setHasSubmit } = useContext(NavigationContext);
-
+  const { t } = useContext(I18nContext);
   const handleClickCard = () => {
     setSearchTerm(name);
     setHasSubmit(true);
@@ -24,7 +25,7 @@ export default function CardPokemon({ size, name, id, img, types }) {
             key={Math.random()}
             className={`${styles.type} ${styles[typeInfo]}`}
           >
-            {typeInfo}
+            {t(`${typeInfo}`)}
           </span>
         ))}
       </div>

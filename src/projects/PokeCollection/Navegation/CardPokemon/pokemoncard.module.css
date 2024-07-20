@@ -34,6 +34,13 @@
   width: 140px;
   height: 140px;
 }
+
+.big:hover{
+  box-shadow:none; 
+  transform: none;
+  cursor: context-menu;
+}
+
 .pokemonName {
   font-size: 20px;
   margin: 0;

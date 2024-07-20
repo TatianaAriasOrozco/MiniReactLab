@@ -5,6 +5,7 @@ import { URL_BASE } from '../../api/config';
 import useLocalStorage from '../../../../hooks/useLocalStorage';
 import CardPokemon from '../CardPokemon/CardPokemon';
 import { NavigationContext } from '../../../../contexts/NavigationContext';
+import { I18nContext } from '../../../../contexts/I18nContext';
 
 export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
   const [searchedPokemon, setSearchedPokemon] = useState(null);
@@ -12,6 +13,7 @@ export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
   const { data: pokemon, loading, error, fetchData: getPokemon } = useFetch();
 
   const { searchTerm, setSearchTerm, hasSubmit, setHasSubmit } = useContext(NavigationContext);
+  const { t } = useContext(I18nContext);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -66,7 +68,7 @@ export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
     await fetchFavorites(url, options);
   };
 
-  // se hizo un cambio con el boton agregar favoritos
+
   useEffect(() => {
     console.log(activeFavorite, ': useEffect => activeFavorite:');
     if (pokemon && activeFavorite !== undefined && activeFavorite !== null) {
@@ -113,16 +115,16 @@ export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search Pokémon"
+          placeholder={t('search') + " " + "Pokémon"}
           className={styles.searchInput}
         />
         <button type="submit" className={styles.searchButton}>
-          Search
+          {t('search')}
         </button>
       </form>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error.message}</p>}
-      {pokemon && (
+      {loading && <p>{t('loading')}...</p>}
+      {error && <p className={styles.noFound}>{"Pókemon" + " " + t('nofound')}</p>}
+      {!error && pokemon && (
         <div className={styles.pokemonCard}>
           <CardPokemon
             key={pokemon.id}
@@ -138,7 +140,7 @@ export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
                 <img src="src/assets/weight.svg" alt="weighticon" />
                 <span>{pokemon.weight / 10} kg</span>
               </div>
-              <p>Weight</p>
+              <p>{t('weight')}</p>
             </div>
             <img src="src/assets/line.svg" alt="" />
             <div className={styles.statFooter}>
@@ -146,20 +148,22 @@ export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
                 <img src="src/assets/height.svg" alt="heighticon" />
                 <span>{pokemon.height / 10} m</span>
               </div>
-              <p>Height</p>
+              <p>{t('height')}</p>
             </div>
           </div>
         </div>
       )}
 
-      <button onClick={handleFavorite} className={styles.favoriteButton}>
-        <span className={activeFavorite ? styles.isFavorite : ''}>
-          {starSvg}
-        </span>
-        <span className={styles.favoriteLabel}>
-          {activeFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
-        </span>
-      </button>
+      {!error && searchTerm != '' &&
+        <button onClick={handleFavorite} className={styles.favoriteButton}>
+          <span className={activeFavorite ? styles.isFavorite : ''}>
+            {starSvg}
+          </span>
+          <span className={styles.favoriteLabel}>
+            {activeFavorite ? `${t('removefavs')}` : `${t('addfavs')}`}
+          </span>
+        </button>
+      }
     </div>
   );
 }

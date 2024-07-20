@@ -33,6 +33,23 @@
   cursor: pointer;
 }
 
+.noFound{
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 700;
+  width: 216px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #3b76f6;
+  padding: 4px 8px;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  color: #3b76f6;
+}
+
 .pokemonCard {
   border-radius: 10px;
   width: 300px;
@@ -81,7 +98,6 @@
 .favoriteButton {
   background-color: white;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
   font-weight: 700;
@@ -96,7 +112,6 @@
   padding: 4px 8px;
   align-items: center;
   justify-content: center;
-  gap: 4px;
   width: fit-content;
 }
 .isFavorite {
