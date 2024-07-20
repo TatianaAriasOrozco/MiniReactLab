@@ -21,19 +21,39 @@ const Navigation = ({ username }) => {
     getFavorites();
   }, [username]);
 
+  //onFavorite:
+  /* Agregar o borrar a la lista de  favoritos con pokemon */
   const handleFavorite = (pokemon) => {
-    /* Agregar o borrar a la lista de  favoritos con pokemon */
+    console.log('handleFavorite:', pokemon);
+    const searchPokemon = favoriteList.find((poke) => poke.id === pokemon.id);
+    console.log(searchPokemon, ' es el elegido!');
+    if (searchPokemon) {
+      setFavoriteList(favoriteList.filter((poke) => poke.id !== pokemon.id));
+    } else {
+      setFavoriteList([
+        ...favoriteList,
+        {
+          id: pokemon.id,
+          name: pokemon.name,
+          avatarUrl: pokemon.sprites.front_default,
+          types: pokemon.types.map((typeInfo) => typeInfo.type.name),
+        },
+      ]);
+    }
   };
 
   return (
     <div>
       {favoriteList && <Favorites favorites={favoriteList} />}
       <button onClick={getFavorites}>click</button>
-      <Search
-        username={username}
-        fetchFavorites={fetchFavorites}
-        onFavorite={handleFavorite}
-      />
+      {favoriteList && (
+        <Search
+          username={username}
+          fetchFavorites={fetchFavorites}
+          onFavorite={handleFavorite}
+          favoriteList={favoriteList}
+        />
+      )}
       {/* <Favorites
         username={username}
         favoritesData={favoritesData}

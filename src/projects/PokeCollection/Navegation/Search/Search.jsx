@@ -4,10 +4,10 @@ import { useFetch } from '../../../../hooks/useFetch';
 import { URL_BASE } from '../../api/config';
 import useLocalStorage from '../../../../hooks/useLocalStorage';
 
-export function Search({ username, fetchFavorites, onFavorite }) {
+export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchedPokemon, setSearchedPokemon] = useState(null);
-  const [activeFavorite, setActiveFavorite] = useState(false);
+  const [activeFavorite, setActiveFavorite] = useState(null);
   const { data: pokemon, loading, error, fetchData: getPokemon } = useFetch();
 
   const handleSearch = (e) => {
@@ -16,9 +16,28 @@ export function Search({ username, fetchFavorites, onFavorite }) {
     console.log('searchedPokemon', searchedPokemon, pokemon);
   };
 
+  /* ------------------------FRANKS-------------------------------- */
   useEffect(() => {
     if (searchTerm)
-      getPokemon(`https://pokeapi.co/api/v2/pokemon/${searchTerm}`);
+      getPokemon(
+        `https://pokeapi.co/api/v2/pokemon/${searchTerm}`,
+        {}, //options
+        (pokemon) => {
+          //Verificar si el pokemon ya esta en la lista de favoritos
+          const isFavorite = favoriteList.find(
+            (poke) => poke.id === pokemon.id
+          );
+          console.log(
+            `${pokemon.name} ${isFavorite ? 'Es favorito' : 'NO es favorito'} `
+          );
+          setActiveFavorite(isFavorite);
+          console.log(
+            `boton ActiveFavorite: ${
+              isFavorite ? 'Es favorito' : 'NO es favorito'
+            }`
+          );
+        }
+      );
   }, [searchTerm]);
 
   const createFavorite = async () => {
@@ -38,12 +57,37 @@ export function Search({ username, fetchFavorites, onFavorite }) {
     };
     await fetchFavorites(url, options);
   };
-  useEffect(() => {}, [activeFavorite]);
+
+  const deleteFavorite = async () => {
+    const url = `${URL_BASE}/api/${username}/favorites/${pokemon.id}`;
+
+    const options = {
+      method: 'DELETE',
+      headers: { 'User-Agent': 'insomnia/2023.5.8' },
+    };
+    await fetchFavorites(url, options);
+  };
+
+  // se hizo un cambio con el boton agregar favoritos
+  useEffect(() => {
+    console.log(activeFavorite, ': useEffect => activeFavorite:');
+    if (pokemon && activeFavorite !== undefined && activeFavorite !== null) {
+      if (activeFavorite) {
+        console.log('Realizar fetch - createFavorite');
+        createFavorite();
+      } else {
+        console.log('Realizar fetch - deleteFavorite');
+        deleteFavorite();
+      }
+    }
+  }, [activeFavorite]);
 
   const handleFavorite = () => {
     setActiveFavorite(!activeFavorite);
-    console.log(activeFavorite);
+    if (pokemon) onFavorite(pokemon);
+    console.log('click', activeFavorite);
   };
+  /* ------------------------FRANKS---------------------------- */
 
   return (
     <div className={styles.searchContainer}>
