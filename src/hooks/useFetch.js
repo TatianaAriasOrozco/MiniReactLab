@@ -1,28 +1,36 @@
 import { useState, useEffect } from 'react';
 
-export function useFetch(endpoint) {
+export function useFetch() {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!endpoint) return;
-      try {
-        const response = await fetch(endpoint);
-        if (!response.ok) throw Error('Peticion rechazada: Url invalid?');
+  const noOP = () => {};
+  const fetchData = async (url, options = {}, setter = noOP) => {
+    if (!url) return;
+    if (loading) return;
+    try {
+      setError(null);
+      setLoading(true);
+      console.log('endpoint', url);
+      const response = await fetch(url, options);
+      if (!response.ok) throw Error('Url invalid?');
+      if ((options && options.method !== 'DELETE') || !options) {
         const rawData = await response.json();
-        setData(rawData);
-      } catch (error) {
-        console.log(error);
-        setError(error);
-      } finally {
-        setLoading(false);
+        if (rawData) {
+          console.log('rawData', rawData);
+          setData(rawData);
+          setter(rawData);
+          return data;
+        }
       }
-    };
+      return true;
+    } catch (error) {
+      console.log(error);
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchData();
-  }, [endpoint]);
-
-  return { data, loading, error };
+  return { data, loading, error, fetchData };
 }
