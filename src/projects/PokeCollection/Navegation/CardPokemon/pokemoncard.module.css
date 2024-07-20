@@ -19,6 +19,14 @@
   align-items: center;
 }
 
+.big h2 {
+  font-size: 24px;
+}
+
+.big img {
+  width: 140px;
+  height: 140px;
+}
 .pokemonName {
   font-size: 20px;
   margin: 0;
@@ -26,6 +34,7 @@
 }
 
 .pokemonId {
+  font-size: 14px;
   margin: 0;
   padding: 0;
 }

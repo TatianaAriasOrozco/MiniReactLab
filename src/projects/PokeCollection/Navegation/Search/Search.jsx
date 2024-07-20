@@ -10,36 +10,32 @@ export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
   const [searchedPokemon, setSearchedPokemon] = useState(null);
   const [activeFavorite, setActiveFavorite] = useState(null);
   const { data: pokemon, loading, error, fetchData: getPokemon } = useFetch();
+  const [hasSubmit, setHasSubmit] = useState(false);
 
   const handleSearch = (e) => {
     e.preventDefault();
     setSearchedPokemon(pokemon);
+    setHasSubmit(true);
     console.log('searchedPokemon', searchedPokemon, pokemon);
   };
 
-  /* ------------------------FRANKS-------------------------------- */
   useEffect(() => {
-    if (searchTerm)
-      getPokemon(
-        `https://pokeapi.co/api/v2/pokemon/${searchTerm}`,
-        {}, //options
+    if (hasSubmit && searchTerm) {
+      getPokemon(`https:pokeapi.co/api/v2/pokemon/${searchTerm}`, {}, //options
         (pokemon) => {
           //Verificar si el pokemon ya esta en la lista de favoritos
           const isFavorite = favoriteList.find(
-            (poke) => poke.id === pokemon.id
-          );
-          console.log(
-            `${pokemon.name} ${isFavorite ? 'Es favorito' : 'NO es favorito'} `
-          );
+            (poke) => poke.id === pokemon.id);
+          console.log(`${pokemon.name} ${isFavorite ? 'Es favorito' : 'NO es favorito'}`);
           setActiveFavorite(isFavorite);
-          console.log(
-            `boton ActiveFavorite: ${
-              isFavorite ? 'Es favorito' : 'NO es favorito'
-            }`
-          );
+          console.log(`boton ActiveFavorite: ${isFavorite ? 'Es favorito' : 'NO es favorito'}`);
         }
       );
-  }, [searchTerm]);
+    }
+    return () => {
+      setHasSubmit(false);
+    };
+  }, [hasSubmit]);
 
   const createFavorite = async () => {
     const url = `${URL_BASE}/api/${username}/favorites`;
@@ -84,11 +80,15 @@ export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
   }, [activeFavorite]);
 
   const handleFavorite = () => {
-    setActiveFavorite(!activeFavorite);
+    if (searchTerm !== '' && searchTerm) setActiveFavorite(!activeFavorite);
     if (pokemon) onFavorite(pokemon);
     console.log('click', activeFavorite);
   };
-  /* ------------------------FRANKS---------------------------- */
+
+  // const handleClickCard = (pokeName) => {
+  //   setSearchTerm(pokeName);
+  //   setHasSubmit(true);
+  // }
 
   let starSvg = (
     <svg
@@ -129,40 +129,32 @@ export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
         <div className={styles.pokemonCard}>
           <CardPokemon
             key={pokemon.id}
+            size={'big'}
             name={pokemon.name}
             id={pokemon.id}
             img={pokemon.sprites.other['official-artwork'].front_default}
             types={pokemon.types.map((typeInfo) => typeInfo.type.name)}
           />
-          {/* <h2 className={styles.pokemonName}>{pokemon.name}</h2>
-          <p className={styles.pokemonId}>
-            #{pokemon.id.toString().padStart(3, '0')}
-          </p>
-          <img
-            src={pokemon.sprites.front_default}
-            alt={pokemon.name}
-            className={styles.pokemonImage}
-          />
-          <div className={styles.pokemonTypes}>
-            {pokemon.types.map((typeInfo) => (
-              <span
-                key={typeInfo.type.name}
-                className={`${styles.type} ${styles[typeInfo.type.name]}`}
-              >
-                {typeInfo.type.name}
-              </span>
-            ))}
-          </div> */}
           <div className={styles.pokemonStats}>
-            <div className={styles.stat}>
-              <span>{pokemon.weight / 10} kg</span>
+            <div className={styles.statFooter}>
+              <div className={styles.stat}>
+                <img src="src/assets/weight.svg" alt="weighticon" />
+                <span>{pokemon.weight / 10} kg</span>
+              </div>
+              <p>Weight</p>
             </div>
-            <div className={styles.stat}>
-              <span>{pokemon.height / 10} m</span>
+            <img src="src/assets/line.svg" alt="" />
+            <div className={styles.statFooter}>
+              <div className={styles.stat}>
+                <img src="src/assets/height.svg" alt="heighticon" />
+                <span>{pokemon.height / 10} m</span>
+              </div>
+              <p>Height</p>
             </div>
           </div>
         </div>
       )}
+
       <button onClick={handleFavorite} className={styles.favoriteButton}>
         <span className={activeFavorite ? styles.isFavorite : ''}>
           {starSvg}

@@ -5,6 +5,7 @@ import CardPokemon from '../CardPokemon/CardPokemon';
 import styles from './Favorites.module.css';
 
 const Favorites = ({ favorites }) => {
+
   return (
     <div className={styles.content}>
       {favorites.map((pokemon) => (

@@ -5,7 +5,7 @@ import { useFetch } from '../../../hooks/useFetch';
 import { URL_BASE } from '../api/config';
 import styles from '../Navegation/Navegation.module.css';
 
-const Navigation = ({ username }) => {
+const Navigation = ({ username, setUsername }) => {
   const { data: favorites, fetchData: fetchFavorites } = useFetch();
   const [favoriteList, setFavoriteList] = useState(null);
 
@@ -61,7 +61,10 @@ const Navigation = ({ username }) => {
         /> */}
       </div>
       <div className={styles.favoritesContainer}>
-        <h2 className={styles.title}>Favorites</h2>
+        <div className={styles.favoritesHeader}>
+          <h2 className={styles.title}>Favorites</h2>
+          <button onClick={() => setUsername('')}>Exit</button>
+        </div>
         {favoriteList && <Favorites favorites={favoriteList} />}
       </div>
     </div>

@@ -10,7 +10,7 @@ const PokeCollection = () => {
       {username === '' ? (
         <Login setUsername={setUsername} />
       ) : (
-        <Navegation username={username} />
+        <Navegation username={username} setUsername={setUsername} />
       )}
     </div>
   );
