@@ -4,14 +4,15 @@ import Navegation from './Navegation/Navegation';
 
 const PokeCollection = () => {
   //   const { data: pokemon, loading, error } = useGetPokemon('bulbasaur');
-  const [userName, setUserName] = useLocalStorage('username', '');
+  const [username, setUsername] = useLocalStorage('username', '');
   // use EFECT que te traiga el usuario de los pokemones favoritos
+  console.log(username);
   return (
     <>
-      {userName ? (
-        <Navegation userName={userName} setUserName={setUserName} />
+      {username ? (
+        <Navegation username={username} />
       ) : (
-        <Login setUserName={setUserName} />
+        <Login setUsername={setUsername} />
       )}
     </>
   );

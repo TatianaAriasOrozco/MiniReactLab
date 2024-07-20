@@ -1,15 +1,64 @@
-import React, { useState } from 'react';
-import { useGetPokemon } from '../../hooks/useGetPokemon';
+import { useEffect, useState } from 'react';
 import styles from './Search.module.css';
+import { useFetch } from '../../../../hooks/useFetch';
+import { URL_BASE } from '../../api/config';
+import useLocalStorage from '../../../../hooks/useLocalStorage';
 
-export function Search() {
+export function Search({ username }) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchedPokemon, setSearchedPokemon] = useState('');
-  const { data, loading, error } = useGetPokemon(searchedPokemon);
-
+  const [searchedPokemon, setSearchedPokemon] = useState(null);
+  const [activeFavorite, setActiveFavorite] = useState(false);
+  const { data, loading, error, fetchData } = useFetch();
   const handleSearch = (e) => {
     e.preventDefault();
-    setSearchedPokemon(searchTerm.toLowerCase());
+    setSearchedPokemon(data);
+    return;
+  };
+
+  useEffect(() => {
+    if (searchTerm != '') {
+      const url = `https://pokeapi.co/api/v2/pokemon/${searchTerm}`;
+      console.log('url', url);
+      fetchData(url);
+
+      if (!error) {
+        setSearchedPokemon(data);
+      }
+    }
+  }, [searchTerm]);
+
+  useEffect(() => {
+    console.log(username);
+    if (activeFavorite) {
+      console.log('click activado favoritos');
+      const url = `${URL_BASE}/api/${username}/favorites`;
+      const body = {
+        id: searchedPokemon.id,
+        name: searchedPokemon.name,
+        types: searchedPokemon.types.map((typeInfo) => typeInfo.type.name),
+        avatarUrl: searchedPokemon.sprites.front_default,
+      };
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      };
+      fetch(url, options);
+    } else {
+      const url = `${URL_BASE}/api/${username}/favorites/${searchedPokemon.id}`;
+      const options = {
+        method: 'DELETE',
+        headers: { 'User-Agent': 'insomnia/2023.5.8' },
+      };
+      fetch(url, options);
+    }
+  }, [activeFavorite]);
+
+  const handleFavorite = () => {
+    setActiveFavorite(!activeFavorite);
+    console.log(activeFavorite);
   };
 
   return (
@@ -28,33 +77,36 @@ export function Search() {
       </form>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
-      {data && (
+      {searchedPokemon && (
         <div className={styles.pokemonCard}>
-          <h2 className={styles.pokemonName}>{data.name}</h2>
+          <h2 className={styles.pokemonName}>{searchedPokemon.name}</h2>
           <p className={styles.pokemonId}>
-            #{data.id.toString().padStart(3, '0')}
+            #{searchedPokemon.id.toString().padStart(3, '0')}
           </p>
           <img
-            src={data.image}
-            alt={data.name}
+            src={searchedPokemon.sprites.front_default}
+            alt={searchedPokemon.name}
             className={styles.pokemonImage}
           />
           <div className={styles.pokemonTypes}>
-            {data.types.map((type) => (
-              <span key={type} className={`${styles.type} ${styles[type]}`}>
-                {type}
+            {searchedPokemon.types.map((typeInfo) => (
+              <span
+                key={typeInfo.type.name}
+                className={`${styles.type} ${styles[typeInfo.type.name]}`}
+              >
+                {typeInfo.type.name}
               </span>
             ))}
           </div>
           <div className={styles.pokemonStats}>
             <div className={styles.stat}>
-              <span>{data.weight / 10} kg</span>
+              <span>{searchedPokemon.weight / 10} kg</span>
             </div>
             <div className={styles.stat}>
-              <span>{data.height / 10} m</span>
+              <span>{searchedPokemon.height / 10} m</span>
             </div>
           </div>
-          <button className={styles.favoriteButton}>
+          <button onClick={handleFavorite} className={styles.favoriteButton}>
             Hug x Hug Add to Favorites
           </button>
         </div>
