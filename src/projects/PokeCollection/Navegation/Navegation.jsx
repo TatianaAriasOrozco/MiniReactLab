@@ -1,10 +1,7 @@
-
-
+import { Search } from './Search/Search';
 
 const Navegation = () => {
-  return (
-    <h1>Holaaa</h1>
-  );
-}
+  return <Search />;
+};
 
 export default Navegation;
