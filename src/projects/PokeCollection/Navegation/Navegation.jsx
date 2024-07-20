@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import Favorites from './Favorites/Favorites';
 import { Search } from './Search/Search';
@@ -37,7 +36,7 @@ const Navigation = ({ username }) => {
         {
           id: pokemon.id,
           name: pokemon.name,
-          avatarUrl: pokemon.sprites.front_default,
+          avatarUrl: pokemon.sprites.other['official-artwork'].front_default,
           types: pokemon.types.map((typeInfo) => typeInfo.type.name),
         },
       ]);

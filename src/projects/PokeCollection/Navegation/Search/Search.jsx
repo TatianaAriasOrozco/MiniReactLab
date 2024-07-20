@@ -3,6 +3,7 @@ import styles from './Search.module.css';
 import { useFetch } from '../../../../hooks/useFetch';
 import { URL_BASE } from '../../api/config';
 import useLocalStorage from '../../../../hooks/useLocalStorage';
+import CardPokemon from '../CardPokemon/CardPokemon';
 
 export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -89,6 +90,25 @@ export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
   };
   /* ------------------------FRANKS---------------------------- */
 
+  let starSvg = (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="24" height="24" fill="white" />
+      <path
+        d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+        stroke="#3B76F6"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+
   return (
     <div className={styles.searchContainer}>
       <form onSubmit={handleSearch} className={styles.searchForm}>
@@ -107,7 +127,14 @@ export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
       {error && <p>Error: {error.message}</p>}
       {pokemon && (
         <div className={styles.pokemonCard}>
-          <h2 className={styles.pokemonName}>{pokemon.name}</h2>
+          <CardPokemon
+            key={pokemon.id}
+            name={pokemon.name}
+            id={pokemon.id}
+            img={pokemon.sprites.other['official-artwork'].front_default}
+            types={pokemon.types.map((typeInfo) => typeInfo.type.name)}
+          />
+          {/* <h2 className={styles.pokemonName}>{pokemon.name}</h2>
           <p className={styles.pokemonId}>
             #{pokemon.id.toString().padStart(3, '0')}
           </p>
@@ -125,7 +152,7 @@ export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
                 {typeInfo.type.name}
               </span>
             ))}
-          </div>
+          </div> */}
           <div className={styles.pokemonStats}>
             <div className={styles.stat}>
               <span>{pokemon.weight / 10} kg</span>
@@ -134,11 +161,16 @@ export function Search({ username, fetchFavorites, onFavorite, favoriteList }) {
               <span>{pokemon.height / 10} m</span>
             </div>
           </div>
-          <button onClick={handleFavorite} className={styles.favoriteButton}>
-            Hug x Hug Add to Favorites
-          </button>
         </div>
       )}
+      <button onClick={handleFavorite} className={styles.favoriteButton}>
+        <span className={activeFavorite ? styles.isFavorite : ''}>
+          {starSvg}
+        </span>
+        <span className={styles.favoriteLabel}>
+          {activeFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+        </span>
+      </button>
     </div>
   );
 }
