@@ -1,14 +1,18 @@
 import styles from './Login.module.css';
+import Button from '../../../components/common/Button/Button';
 import { useRef } from 'react';
-import pokeapiLogo from '../../../../assets/pokeapi.png';
+import pokeapiLogo from '../../../assets/pokeapi.png';
 
-const Login = ({ setUserName }) => {
+const Login = ({ setUsername }) => {
   const inputRef = useRef(null);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!inputRef.current.value) return;
-    setUserName(inputRef.current.value);
+    console.log(inputRef.current.value);
+    setUsername(inputRef.current.value);
   };
+
   return (
     <main className={styles.main}>
       <div className={styles.card}>

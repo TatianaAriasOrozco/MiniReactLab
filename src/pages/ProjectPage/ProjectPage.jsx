@@ -8,10 +8,12 @@ import VideoFeed from '../../projects/VideoFeed/VideoFeed';
 const ProjectPage = ({ currentProject }) => {
   return (
     <div className={styles.content}>
-      {currentProject === 'Tic Tac Toe' && <TicTacToe />}
-      {currentProject === 'Pokemon Collection' && <PokeCollection />}
-      {currentProject === 'Wordle' && <ReactWordle />}
-      {currentProject === 'Video Player' && <VideoFeed />}
+      <div className={styles.inner_content}>
+        {currentProject === 'Tic Tac Toe' && <TicTacToe />}
+        {currentProject === 'Pokemon Collection' && <PokeCollection />}
+        {currentProject === 'Wordle' && <ReactWordle />}
+        {currentProject === 'Video Player' && <VideoFeed />}
+      </div>
     </div>
   );
 };
