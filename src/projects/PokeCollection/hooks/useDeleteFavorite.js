@@ -1,18 +1,22 @@
 import { useState, useEffect } from 'react';
+import { URL_BASE } from '../api/config';
 
-export function useFetch(endpoint) {
+export function useDeleteFavorites(username, id) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!endpoint) return;
+      if (!username) return;
       try {
-        const response = await fetch(endpoint);
-        if (!response.ok) throw Error('Peticion rechazada: Url invalid?');
+        const endpoint = `${URL_BASE}/api/${username}/favorites/${id}`;
+        const response = await fetch(endpoint, {
+          method: 'DELETE',
+        });
+        if (!response.ok) throw Error(`Peticion rechazada: ${endpoint}`);
         const rawData = await response.json();
-        setData(rawData);
+        setData(null);
       } catch (error) {
         console.log(error);
         setError(error);
@@ -22,7 +26,7 @@ export function useFetch(endpoint) {
     };
 
     fetchData();
-  }, [endpoint]);
+  }, [username]);
 
   return { data, loading, error };
 }
