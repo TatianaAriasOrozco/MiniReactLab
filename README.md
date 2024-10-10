@@ -1,48 +1,46 @@
 # React Mini-Projects Portfolio
 
-Este proyecto es un portafolio de mini-proyectos desarrollados con **React**. El portafolio incluye una serie de aplicaciones pequeñas con diferentes funcionalidades. Cada proyecto dentro de este portafolio está diseñado para mejorar las habilidades en React y está acompañado de características adicionales, como internacionalización y persistencia de datos.
-El proyecyo fue desarrollado en julio de 2024 como asignación en el bootcamp intensivo de desarrollo web de codeable, en colaboración con dos compañeros, la metodología de trabajo fue asignar "issues" en un tablero kanban y así cada uno aportó de manera significativa a la entrega exitosa del proyecto. 
+This project is a portfolio of mini-projects developed with **React**. The portfolio includes a series of small applications with different functionalities. Each project within this portfolio is designed to enhance React skills and comes with additional features such as internationalization and data persistence.  
+The project was developed in July 2024 as an assignment for the intensive web development bootcamp at Codeable, in collaboration with two teammates. The working methodology involved assigning "issues" on a Kanban board, allowing each team member to contribute significantly to the successful delivery of the project.
 
-## Proyectos Incluidos
+## Included Projects
 
 ### 1. ReactDev Tic-Tac-Toe
-- Un juego clásico de tres en raya mejorado con funcionalidades adicionales:
-  - Estilos personalizados en CSS basados en el diseño en Figma.
-  - Botón de reinicio que restaura el juego a su estado inicial.
-  - Línea ganadora resaltada en verde.
-  - Mensaje de empate si no hay un ganador.
-  - Persistencia del estado del juego en `localStorage`.
+- A classic Tic-Tac-Toe game enhanced with additional features:
+  - Custom CSS styles based on a design in Figma.
+  - Reset button to restore the game to its initial state.
+  - Winning line highlighted in green.
+  - Draw message if there is no winner.
+  - Game state persistence using `localStorage`.
 
 ### 2. Poke Collection
-- Aplicación para buscar y gestionar una colección de Pokemones:
-  - Identificación de usuario y persistencia del username en `localStorage`.
-  - Buscador de Pokemones que consulta la API [PokeAPI](https://pokeapi.co/).
-  - Gestión de favoritos usando una API personalizada.
-  - Agregar y remover Pokemones de la lista de favoritos.
-  - Persistencia de la lista de favoritos por usuario.
+- An application to search and manage a collection of Pokémon:
+  - User identification and username persistence in `localStorage`.
+  - Pokémon search powered by the [PokeAPI](https://pokeapi.co/).
+  - Manage favorites using a custom API.
+  - Add and remove Pokémon from the favorites list.
+  - Persistence of the favorites list by user.
 
 ### 3. React Wordle
-- Implementación del juego Wordle con soporte multilenguaje:
-  - El jugador tiene 6 intentos para adivinar una palabra de 5 letras.
-  - Resaltado de letras correctas, incorrectas y mal ubicadas.
-  - Persistencia del estado del juego por idioma en `localStorage`.
+- A Wordle game implementation with multi-language support:
+  - The player has 6 attempts to guess a 5-letter word.
+  - Highlighting of correct, incorrect, and misplaced letters.
+  - Game state persistence by language in `localStorage`.
 
 ### 4. Video Feed
-- Aplicación para crear y sincronizar una lista de videos de YouTube:
-  - Reproductor de video usando la librería `react-player`.
-  - Sincronización de estado de reproducción entre múltiples videos.
-  - Persistencia de la lista de videos en `localStorage`.
+- An application to create and synchronize a YouTube video feed:
+  - Video player using the `react-player` library.
+  - Synchronization of playback state between multiple videos.
+  - Persistence of the video list in `localStorage`.
 
-## Internacionalización (i18n)
-La aplicación soporta dos idiomas: **Inglés (US)** y **Español (ES)**. El usuario puede seleccionar el idioma desde la cabecera, y la traducción se implementa manualmente usando archivos JSON.
+## Internationalization (i18n)
+The application supports two languages: **English (US)** and **Spanish (ES)**. Users can select the language from the header, and the translation is implemented manually using JSON files.
 
-## Instalación y Configuración
-Abre la terminal y ejecuta los siguientes comandos para clonar y correr el repositorio en tu máquina local:
+## Installation and Setup
+Open your terminal and run the following commands to clone and run the repository on your local machine:
 
 ```bash
-git clone  git@github.com:TatianaAriasOrozco/MiniReactLab.git
+git clone git@github.com:TatianaAriasOrozco/MiniReactLab.git
 cd MiniReactLab
 npm install
 npm run dev
-
-
